@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/expense_tracker
+  db:
+    image: postgres:16
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=expense_tracker
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
